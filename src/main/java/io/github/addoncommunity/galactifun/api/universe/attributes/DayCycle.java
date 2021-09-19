@@ -56,17 +56,17 @@ public final class DayCycle {
         StringBuilder builder = new StringBuilder();
         if (days > 0) {
             builder.append(days);
-            builder.append(" day");
+            builder.append(" 天");
             if (days != 1) {
-                builder.append('s');
+                builder.append(' ');
             }
             builder.append(' ');
         }
         if (hours > 0) {
             builder.append(hours);
-            builder.append(" hour");
+            builder.append(" 小時");
             if (hours != 1) {
-                builder.append('s');
+                builder.append(' ');
             }
         }
 
@@ -81,7 +81,7 @@ public final class DayCycle {
     private DayCycle(long time) {
         Validate.isTrue(time >= 0 && time < 24000, "Eternal time must be between 0 and 24000!");
 
-        this.description = "Eternal " + (time < 12000 ? "Day" : "Night");
+        this.description = "永" + (time < 12000 ? "日" : "夜");
         this.startTime = time;
         this.perFiveSeconds = 0;
     }

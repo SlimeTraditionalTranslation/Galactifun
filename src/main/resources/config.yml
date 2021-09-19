@@ -22,14 +22,14 @@ rockets:
   
   # Messages while rocket is launching
   launch-msgs: 
-    - Forgetting parachutes
-    - Restocking snack bin
-    - Aligning planets
-    - Igniting sun
-    - Inventing funny launch messages
-    - Thanking TheBusyBiscuit
-    - Faking Moon landings
-    - Taking one small step
+    - 忘記帶降落傘
+    - 補給零食箱
+    - 對齊星球
+    - 點燃太陽
+    - 發明有趣的發射訊息
+    - 感謝 TheBusyBiscuit
+    - 假裝登月
+    - 邁出一小步
 
 other:
   # The range that the automatic door checks for players

@@ -28,16 +28,16 @@ import io.github.thebusybiscuit.slimefun4.utils.ChatUtils;
 @ParametersAreNonnullByDefault
 public final class AtmosphericEffect {
 
-    public static final AtmosphericEffect RADIATION = new AtmosphericEffect("RADIATION",
+    public static final AtmosphericEffect RADIATION = new AtmosphericEffect("輻射",
             SpaceSuitStat.RADIATION_RESISTANCE, PotionEffectType.WITHER);
-    public static final AtmosphericEffect HEAT = new AtmosphericEffect("HEAT",
+    public static final AtmosphericEffect HEAT = new AtmosphericEffect("炙熱",
             SpaceSuitStat.HEAT_RESISTANCE, (player, level) -> {
         player.setFireTicks(Ints.constrainToRange(240 * level, 0, player.getMaxFireTicks()));
         if (level > 3) {
             player.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
         }
     });
-    public static final AtmosphericEffect COLD = new AtmosphericEffect("COLD",
+    public static final AtmosphericEffect COLD = new AtmosphericEffect("寒冷",
             SpaceSuitStat.COLD_RESISTANCE, (player, level) -> {
         player.damage(level * 2);
         player.addPotionEffect(new PotionEffect(
@@ -71,7 +71,7 @@ public final class AtmosphericEffect {
 
     public void apply(Player p, int level) {
         if (level > 0) {
-            p.sendMessage(ChatColor.RED + "You have been exposed to " + this + "!");
+            p.sendMessage(ChatColor.RED + "你已暴露在 " + this + " 之下!");
             this.applier.accept(p, level);
         }
     }

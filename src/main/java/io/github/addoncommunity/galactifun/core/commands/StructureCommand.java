@@ -32,7 +32,7 @@ public final class StructureCommand extends SubCommand {
     private final File saveFolder;
 
     public StructureCommand(Galactifun galactifun) {
-        super("structure", "The command for structures", true);
+        super("structure", "結構指令", true);
 
         this.saveFolder = new File(galactifun.getDataFolder(), "saved_structures");
         this.pos1 = Galactifun.createKey("pos1");
@@ -47,19 +47,19 @@ public final class StructureCommand extends SubCommand {
 
         if (args[0].equals("save")) {
             if (args.length != 2) {
-                p.sendMessage(ChatColor.RED + "Usage: /galactifun save <name>");
+                p.sendMessage(ChatColor.RED + "用法: /galactifun save <name>");
                 return;
             }
 
             Location pos1 = p.getPersistentDataContainer().get(this.pos1, PersistentType.LOCATION);
             if (pos1 == null) {
-                p.sendMessage(ChatColor.RED + "pos1 not set!");
+                p.sendMessage(ChatColor.RED + "pos1 未設置!");
                 return;
             }
 
             Location pos2 = p.getPersistentDataContainer().get(this.pos2, PersistentType.LOCATION);
             if (pos2 == null) {
-                p.sendMessage(ChatColor.RED + "pos2 not set!");
+                p.sendMessage(ChatColor.RED + "pos2 未設置!");
                 return;
             }
 
@@ -72,10 +72,10 @@ public final class StructureCommand extends SubCommand {
                 try {
                     Files.writeString(file.toPath(), struct.saveToString(), Charsets.UTF_8);
                     this.savedStructures.put(args[1], struct);
-                    p.sendMessage(ChatColor.GREEN + "Saved as '" + args[1] + "'!");
+                    p.sendMessage(ChatColor.GREEN + "另存為 '" + args[1] + "'!");
                 } catch (IOException e) {
                     e.printStackTrace();
-                    p.sendMessage(ChatColor.RED + "Error saving file! Check the console!");
+                    p.sendMessage(ChatColor.RED + "儲存文件時出錯! 請檢查後台!");
                 }
             }
             return;
@@ -83,25 +83,25 @@ public final class StructureCommand extends SubCommand {
 
         Block target = p.getTargetBlockExact(32);
         if (target == null || target.getType().isAir()) {
-            p.sendMessage(ChatColor.RED + "You must tar a block!");
+            p.sendMessage(ChatColor.RED + "你必須 tar 一個方塊!");
             return;
         }
 
         if (args[0].equals("pos1")) {
             p.getPersistentDataContainer().set(this.pos1, PersistentType.LOCATION, target.getLocation());
-            p.sendMessage(ChatColor.GREEN + "Set pos1 to " + toString(target));
+            p.sendMessage(ChatColor.GREEN + "將 pos1 設置在 " + toString(target));
             return;
         }
 
         if (args[0].equals("pos2")) {
             p.getPersistentDataContainer().set(this.pos2, PersistentType.LOCATION, target.getLocation());
-            p.sendMessage(ChatColor.GREEN + "Set pos2 to " + toString(target));
+            p.sendMessage(ChatColor.GREEN + "將 pos2 設置在 " + toString(target));
             return;
         }
 
         if (args[0].equals("paste")) {
             if (args.length != 2) {
-                p.sendMessage(ChatColor.RED + "Usage: /galactifun paste <name>");
+                p.sendMessage(ChatColor.RED + "用法: /galactifun paste <name>");
                 return;
             }
 
@@ -110,18 +110,18 @@ public final class StructureCommand extends SubCommand {
             if (saved == null) {
                 saved = Structure.getByKey(args[1]);
                 if (saved == null) {
-                    p.sendMessage(ChatColor.RED + "Unknown structure '" + args[1] + "'!");
+                    p.sendMessage(ChatColor.RED + "未知結構 '" + args[1] + "'!");
                     return;
                 }
             }
 
             saved.paste(target, StructureRotation.fromFace(p.getFacing()));
-            p.sendMessage(ChatColor.GREEN + "Pasted!");
+            p.sendMessage(ChatColor.GREEN + "已貼上!");
         }
     }
 
     private static String toString(Block l) {
-        return l.getX() + "x" + l.getY() + "y" + l.getZ() + "z in " + l.getWorld().getName();
+        return l.getX() + "x" + l.getY() + "y" + l.getZ() + "z 在 " + l.getWorld().getName();
     }
 
     @Override

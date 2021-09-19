@@ -1,6 +1,6 @@
 name: Galactifun
 authors: [Seggan, Mooy1, ProfElements, GallowsDove]
-description: Space addon for Slimefun
+description: 黏液科技附加 銀河科技 繁體翻譯版.
 main: io.github.addoncommunity.galactifun.Galactifun
 version: ${project.version}
 api-version: 1.16

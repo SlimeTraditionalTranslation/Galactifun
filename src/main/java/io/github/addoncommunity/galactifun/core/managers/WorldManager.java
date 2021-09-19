@@ -280,7 +280,7 @@ public final class WorldManager implements Listener {
         if (b != null && Tag.BEDS.isTagged(b.getType())) {
             e.setCancelled(true);
             p.setBedSpawnLocation(p.getLocation(), true);
-            p.sendMessage("Respawn point set");
+            p.sendMessage("重生點已設定");
         }
     }
 
@@ -315,8 +315,8 @@ public final class WorldManager implements Listener {
                     if (times > 3) {
                         p.sendMessage(
                                 ChatColor.YELLOW +
-                                        "A possible respawn loop has been detected! " +
-                                        "Do you wish to go back to Earth? (yes/no)"
+                                        "已檢測到可能的重生循環! " +
+                                        "你想回到地球嗎? (yes/no)"
                         );
                         ChatUtils.awaitInput(p, s -> {
                             if (s.equalsIgnoreCase("yes")) {

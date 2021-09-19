@@ -7,9 +7,9 @@ package io.github.addoncommunity.galactifun.api.universe.types;
  */
 public final class GalaxyType extends UniversalType {
 
-    public static final GalaxyType ELLIPTICAL = new GalaxyType("Elliptical");
-    public static final GalaxyType SPIRAL = new GalaxyType("Spiral");
-    public static final GalaxyType IRREGULAR = new GalaxyType("Irregular");
+    public static final GalaxyType ELLIPTICAL = new GalaxyType("橢圓形");
+    public static final GalaxyType SPIRAL = new GalaxyType("螺旋");
+    public static final GalaxyType IRREGULAR = new GalaxyType("不規則");
 
     public GalaxyType(String name) {
         super(name);

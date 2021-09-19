@@ -43,7 +43,7 @@ public enum KnowledgeLevel {
         public void addLore(@Nonnull List<Component> lore, @Nonnull PlanetaryWorld world) {
             if (!world.atmosphere().effects().isEmpty()) {
                 lore.add(Component.empty());
-                lore.add(Component.text("Effects:").color(NamedTextColor.GRAY));
+                lore.add(Component.text("效果:").color(NamedTextColor.GRAY));
                 for (Map.Entry<AtmosphericEffect, Integer> effect : world.atmosphere().effects().entrySet()) {
                     lore.add(Component.text(effect.getKey().toString())
                             .color(NamedTextColor.RED)
@@ -54,16 +54,16 @@ public enum KnowledgeLevel {
             }
 
             lore.add(Component.empty());
-            lore.add(Component.text("Day/Night Cycle: ")
+            lore.add(Component.text("日/夜循環: ")
                     .color(NamedTextColor.GRAY)
                     .append(Component.text(world.dayCycle().description()))
             );
 
             lore.add(Component.empty());
-            lore.add(Component.text("Atmospheric Pressure: ")
+            lore.add(Component.text("大氣壓力: ")
                     .color(NamedTextColor.GRAY)
                     .append(Component.text(formatter.format(world.atmosphere().pressure())))
-                    .append(Component.text(" atm"))
+                    .append(Component.text(" atm(大氣壓)"))
             );
         }
     },
@@ -79,7 +79,7 @@ public enum KnowledgeLevel {
             // if pressure is not 0, accounting for double imprecision
             if (Math.abs(world.atmosphere().pressure()) > 1e-6) {
                 lore.add(Component.empty());
-                lore.add(Component.text("Atmospheric Composition:").color(NamedTextColor.GRAY));
+                lore.add(Component.text("大氣成份:").color(NamedTextColor.GRAY));
 
                 // sort them by amount
                 LinkedHashMap<Gas, Double> gases = new LinkedHashMap<>(world.atmosphere().composition());
@@ -95,7 +95,7 @@ public enum KnowledgeLevel {
             }
 
             lore.add(Component.empty());
-            lore.add(Component.text("Gravity: ")
+            lore.add(Component.text("重力: ")
                     .color(NamedTextColor.GRAY)
                     .append(Component.text(formatter.format(world.gravity().percent())))
                     .append(Component.text(" g"))

@@ -23,7 +23,7 @@ import io.github.addoncommunity.galactifun.core.managers.ProtectionManager;
 import io.github.addoncommunity.galactifun.core.managers.WorldManager;
 import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.mooy1.infinitylib.core.AbstractAddon;
-import io.github.mooy1.infinitylib.metrics.bukkit.Metrics;
+//import io.github.mooy1.infinitylib.metrics.bukkit.Metrics;
 
 
 public final class Galactifun extends AbstractAddon {
@@ -55,7 +55,7 @@ public final class Galactifun extends AbstractAddon {
     protected void enable() {
         instance = this;
 
-        new Metrics(this, 11613);
+        //new Metrics(this, 11613);
 
         this.alienManager = new AlienManager(this);
         this.worldManager = new WorldManager(this);
@@ -71,10 +71,11 @@ public final class Galactifun extends AbstractAddon {
         Scheduler.run(() -> log(Level.INFO,
                 "################# Galactifun " + getPluginVersion() + " #################",
                 "",
-                "Galactifun is open source, you can contribute or report bugs at: ",
+                "Galactifun 是開源的專案, 你可以貢獻或回報錯誤在: ",
                 getBugTrackerURL(),
-                "Join the Slimefun Addon Community Discord: discord.gg/SqD3gg5SAU",
+                "加入官方的 Slimefun Addon Community Discord: discord.gg/SqD3gg5SAU",
                 "",
+                "此為繁體翻譯版 非官方版本",
                 "###################################################"
         ));
 

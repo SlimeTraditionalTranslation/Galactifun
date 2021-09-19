@@ -116,12 +116,12 @@ public final class WorldSelector {
                     lore.remove(lore.size() - 1);
 
                     if (distance > 0) {
-                        lore.add(Component.text("Distance: " + (distance < 1
-                                ? distance * Util.KM_PER_LY + " Kilometers"
-                                : distance + " Light Years")
+                        lore.add(Component.text("距離: " + (distance < 1
+                                ? distance * Util.KM_PER_LY + " 公里"
+                                : distance + " 光年")
                         ).color(NamedTextColor.GRAY));
                     } else {
-                        lore.add(Component.text("You are here!").color(NamedTextColor.GRAY));
+                        lore.add(Component.text("你在這裡!").color(NamedTextColor.GRAY));
                     }
 
                     if (orbiter instanceof PlanetaryWorld planetaryWorld) {

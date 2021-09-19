@@ -26,7 +26,7 @@ public final class StargateRing extends SlimefunItem {
             public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
                 if (BSUtils.getStoredBoolean(e.getBlock().getLocation(), "locked")) {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.RED + "Deactivate the Stargate before destroying it");
+                    e.getPlayer().sendMessage(ChatColor.RED + "在摧毀星際之門之前, 請先停用星際之門");
                 }
             }
         });

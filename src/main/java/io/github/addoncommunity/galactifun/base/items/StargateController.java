@@ -110,7 +110,7 @@ public final class StargateController extends SlimefunItem implements Listener {
             public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
                 if (Boolean.parseBoolean(BlockStorage.getLocationInfo(e.getBlock().getLocation(), "locked"))) {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.RED + "Deactivate the Stargate before destroying it");
+                    e.getPlayer().sendMessage(ChatColor.RED + "在摧毀星際之門之前, 請先停用星際之門");
                 }
             }
         });
@@ -162,7 +162,7 @@ public final class StargateController extends SlimefunItem implements Listener {
 
     private void onUse(PlayerRightClickEvent event, Player p, Block b) {
         if (!isPartOfStargate(b)) {
-            p.sendMessage(ChatColor.RED + "The Stargate is not assembled!");
+            p.sendMessage(ChatColor.RED + "星際之門尚未組裝!");
             return;
         }
         event.cancel();
@@ -182,7 +182,7 @@ public final class StargateController extends SlimefunItem implements Listener {
             }
 
             lockBlocks(b, true);
-            p.sendMessage(ChatColor.YELLOW + "Stargate activated!");
+            p.sendMessage(ChatColor.YELLOW + "星際之門已啟用!");
             return;
         }
 
@@ -218,17 +218,17 @@ public final class StargateController extends SlimefunItem implements Listener {
         String temp = address;
         menu.addItem(ADDRESS_SLOT, new CustomItemStack(
                 Material.BOOK,
-                "&fAddress: " + address,
-                "&7Click to send the address to chat"
+                "&f地址: " + address,
+                "&7點擊發送地址至聊天室"
         ), (p, i, s, c) -> {
-            p.sendMessage(ChatColor.YELLOW + "Address: " + temp);
+            p.sendMessage(ChatColor.YELLOW + "地址: " + temp);
             p.closeInventory();
             return false;
         });
 
         menu.addItem(DEACTIVATE_SLOT, new CustomItemStack(
                 Material.BARRIER,
-                "&fClick to Deactivate the Stargate"
+                "&f點擊停用星際之門"
         ), (p, i, s, c) -> {
             getPortalBlocks(b).ifPresent(li -> {
                 for (Block block : li) {
@@ -243,10 +243,10 @@ public final class StargateController extends SlimefunItem implements Listener {
 
         menu.addItem(DESTINATION_SLOT, new CustomItemStack(
                 Material.RAIL,
-                "&fClick to Set Destination",
-                "&7Current Destination: " + destination
+                "&f點擊設置目的地",
+                "&7目前的目的地: " + destination
         ), (p, i, s, c) -> {
-            p.sendMessage(ChatColor.YELLOW + "Type in the destination address");
+            p.sendMessage(ChatColor.YELLOW + "輸入目標地址");
             ChatUtils.awaitInput(p, st -> setDestination(st, b, p));
             p.closeInventory();
             return false;
@@ -268,13 +268,13 @@ public final class StargateController extends SlimefunItem implements Listener {
                     }
                 }
             }
-            p.sendMessage(ChatColor.RED + "No destination found!");
+            p.sendMessage(ChatColor.RED + "沒有找到目的地!");
             return;
         }
 
         Optional<List<Block>> portalOptional = getPortalBlocks(b);
         if (portalOptional.isEmpty()) {
-            p.sendMessage(ChatColor.RED + "The Stargate is not lit for some reason...");
+            p.sendMessage(ChatColor.RED + "星際之門由於某些原因沒有點亮...");
             return;
         }
 
@@ -291,7 +291,7 @@ public final class StargateController extends SlimefunItem implements Listener {
         }
 
         p.sendMessage(ChatColor.YELLOW + String.format(
-                "Set Stargate destination to %d %d %d in %s",
+                "設置星際之門目的地為 %d %d %d 在 %s",
                 dest.getBlockX(),
                 dest.getBlockY(),
                 dest.getBlockZ(),
@@ -307,7 +307,7 @@ public final class StargateController extends SlimefunItem implements Listener {
         if (b.getType() == Material.END_GATEWAY &&
                 Boolean.parseBoolean(BlockStorage.getLocationInfo(b.getLocation(), "locked"))) {
             e.setCancelled(true);
-            e.getPlayer().sendMessage(ChatColor.RED + "Deactivate the Stargate before destroying it");
+            e.getPlayer().sendMessage(ChatColor.RED + "在摧毀星際之門之前, 請先停用星際之門");
         }
     }
 
@@ -321,7 +321,7 @@ public final class StargateController extends SlimefunItem implements Listener {
         if (BlockStorage.check(b, BaseItems.STARGATE_CONTROLLER.getItemId()) &&
                 StargateController.getPortalBlocks(b).isEmpty()) {
             e.setCancelled(true);
-            e.getPlayer().sendMessage(ChatColor.RED + "The destination Stargate is not activated");
+            e.getPlayer().sendMessage(ChatColor.RED + "目的地的星際之門尚未被啟用");
         }
     }
 

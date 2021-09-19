@@ -38,7 +38,7 @@ public abstract class UniversalObject {
     UniversalObject(@Nonnull String name, @Nonnull UniversalType type, @Nonnull Orbit orbit,
                     @Nonnull UniversalObject orbiting, @Nonnull ItemStack baseItem) {
         this.name = ChatUtils.removeColorCodes(name);
-        this.item = new CustomItemStack(baseItem, name, "&7Type: " + type.description());
+        this.item = new CustomItemStack(baseItem, name, "&7類型: " + type.description());
         this.orbiting = orbiting;
         this.orbit = orbit;
         this.orbitLevel = orbiting.orbitLevel + 1;

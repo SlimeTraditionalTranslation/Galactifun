@@ -17,7 +17,7 @@ import io.github.mooy1.infinitylib.commands.SubCommand;
 public final class SphereCommand extends SubCommand {
 
     public SphereCommand() {
-        super("sphere", "Generates a sphere in the direction you are facing with specified radius", true);
+        super("sphere", "在你面向的方向生成指定的球體", true);
     }
 
     @Override
@@ -27,7 +27,7 @@ public final class SphereCommand extends SubCommand {
         }
 
         if (strings.length < 2) {
-            p.sendMessage(ChatColor.RED + "Usage: /galactifun sphere <radius> <material>...");
+            p.sendMessage(ChatColor.RED + "用法: /galactifun sphere <radius> <material>...");
             return;
         }
 
@@ -36,12 +36,12 @@ public final class SphereCommand extends SubCommand {
         try {
             radius = Integer.parseInt(strings[0]);
         } catch (NumberFormatException e) {
-            p.sendMessage(ChatColor.RED + "Invalid radius!");
+            p.sendMessage(ChatColor.RED + "未知半徑!");
             return;
         }
 
         if (radius < Sphere.MIN_RADIUS || radius > Sphere.MAX_RADIUS) {
-            p.sendMessage(ChatColor.RED + "Radius must be within [3 - 125]");
+            p.sendMessage(ChatColor.RED + "半徑必須在 [3 - 125] 之間");
             return;
         }
 
@@ -53,7 +53,7 @@ public final class SphereCommand extends SubCommand {
             try {
                 materials[i] = Material.valueOf(strings[i + 1]);
             } catch (IllegalArgumentException e) {
-                p.sendMessage(ChatColor.RED + "'" + strings[i + 1] + "' is not a material!");
+                p.sendMessage(ChatColor.RED + "'" + strings[i + 1] + "' 並不是材料!");
                 return;
             }
         }
@@ -61,7 +61,7 @@ public final class SphereCommand extends SubCommand {
         Sphere sphere = new Sphere(materials);
         long nano = System.nanoTime();
         sphere.generate(tar, radius, 0);
-        p.sendMessage(ChatColor.GREEN + "Generated in " + Util.timeSince(nano));
+        p.sendMessage(ChatColor.GREEN + "生成於 " + Util.timeSince(nano));
     }
 
     @Override

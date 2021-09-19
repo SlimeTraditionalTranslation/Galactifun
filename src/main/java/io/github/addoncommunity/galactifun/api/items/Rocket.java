@@ -90,14 +90,14 @@ public final class Rocket extends SlimefunItem {
 
         String string = BlockStorage.getLocationInfo(b.getLocation(), "isLaunching");
         if (Boolean.parseBoolean(string)) {
-            p.sendMessage(ChatColor.RED + "The rocket is already launching!");
+            p.sendMessage(ChatColor.RED + "火箭已經在發射!");
             return;
         }
 
         WorldManager worldManager = Galactifun.worldManager();
         PlanetaryWorld world = worldManager.getWorld(p.getWorld());
         if (world == null) {
-            p.sendMessage(ChatColor.RED + "You cannot travel to space from this world!");
+            p.sendMessage(ChatColor.RED + "你不能從這個世界前往太空!");
             return;
         }
 
@@ -105,7 +105,7 @@ public final class Rocket extends SlimefunItem {
         if (string == null) return;
         int fuel = Integer.parseInt(string);
         if (fuel == 0) {
-            p.sendMessage(ChatColor.RED + "The rocket has no fuel!");
+            p.sendMessage(ChatColor.RED + "火箭沒有燃料!");
             return;
         }
 
@@ -127,13 +127,13 @@ public final class Rocket extends SlimefunItem {
                 lore.add(Component.empty());
                 lore.add(Component.text()
                         .color(NamedTextColor.YELLOW)
-                        .append(Component.text("Distance: "))
+                        .append(Component.text("距離: "))
                         .append(Component.text((long) dist))
                         .build()
                 );
                 lore.add(Component.text()
                         .color(NamedTextColor.YELLOW)
-                        .append(Component.text("Fuel: "))
+                        .append(Component.text("燃料: "))
                         .append(Component.text((long) Math.ceil(dist / DISTANCE_PER_FUEL)))
                         .build()
                 );
@@ -144,11 +144,11 @@ public final class Rocket extends SlimefunItem {
             if (obj instanceof PlanetaryWorld planetaryWorld) {
                 player.closeInventory();
                 int usedFuel = (int) Math.ceil((planetaryWorld.distanceTo(world) * Util.KM_PER_LY) / DISTANCE_PER_FUEL);
-                player.sendMessage(ChatColor.YELLOW + "You are going to " + planetaryWorld.name() + " and will use " +
-                        usedFuel + " fuel. Are you sure you want to do that? (yes/no)");
+                player.sendMessage(ChatColor.YELLOW + "你要去 " + planetaryWorld.name() + " ,將會使用 " +
+                        usedFuel + " 燃料. 你確定要這麼做嗎? (yes/no)");
                 ChatUtils.awaitInput(player, (input) -> {
                     if (input.equalsIgnoreCase("yes")) {
-                        p.sendMessage(ChatColor.YELLOW + "Please enter destination coordinates in the form of <x> <z> (i.e. -123 456):");
+                        p.sendMessage(ChatColor.YELLOW + "請以 <x> <z> 的格式輸入目的地座標 (像是 -123 456):");
                         ChatUtils.awaitInput(p, (response) -> {
                             String trimmed = response.trim();
                             if (Util.COORD_PATTERN.matcher(trimmed).matches()) {
@@ -157,7 +157,7 @@ public final class Rocket extends SlimefunItem {
                                 int z = Integer.parseInt(split[1]);
                                 launch(player, b, planetaryWorld, fuel - usedFuel, fuelType, x, z);
                             } else {
-                                p.sendMessage(ChatColor.RED + "Invalid coordinate format! Please use the format <x> <z>");
+                                p.sendMessage(ChatColor.RED + "未知座標格式! 請使用格式 <x> <z>");
                             }
                         });
                     }
@@ -200,7 +200,7 @@ public final class Rocket extends SlimefunItem {
         Scheduler.run(120, sendRandomMessage(p));
         Scheduler.run(160, sendRandomMessage(p));
         Scheduler.run(200, () -> {
-            p.sendMessage(ChatColor.GOLD + "Verifying blast awesomeness...");
+            p.sendMessage(ChatColor.GOLD + "驗證爆炸效果...");
 
             Block destBlock = null;
             for (int y = to.getMaxHeight(); y > to.getMinHeight(); y--) {

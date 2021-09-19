@@ -41,23 +41,23 @@ import io.github.addoncommunity.galactifun.base.universe.saturn.Titan;
 @UtilityClass
 public final class BaseUniverse {
 
-    public static final TheUniverse THE_UNIVERSE = new TheUniverse("The Universe");
+    public static final TheUniverse THE_UNIVERSE = new TheUniverse("宇宙");
     public static final Galaxy MILKY_WAY = new Galaxy(
-            "Milky Way",
+            "銀河系",
             GalaxyType.SPIRAL,
             Orbit.lightYears(12_000_000_000D, 0),
             THE_UNIVERSE,
             new ItemStack(Material.MILK_BUCKET)
     );
     public static final StarSystem SOLAR_SYSTEM = new StarSystem(
-            "Solar System",
+            "太陽系",
             StarSystemType.NORMAL,
             Orbit.lightYears(27_000, 250_000_000D),
             MILKY_WAY,
             new ItemStack(Material.SUNFLOWER)
     );
     public static final PlanetaryObject JUPITER = new PlanetaryObject(
-            "&6Jupiter",
+            "&6木星",
             PlanetaryType.GAS_GIANT,
             Orbit.kilometers(778_340_821L, 12D),
             SOLAR_SYSTEM,
@@ -97,7 +97,7 @@ public final class BaseUniverse {
             Gravity.metersPerSec(1.315)
     );
     public static final PlanetaryObject SATURN = new PlanetaryObject(
-            "Saturn",
+            "土星",
             PlanetaryType.GAS_GIANT,
             Orbit.kilometers(1_490_500_000, 29D),
             SOLAR_SYSTEM,
@@ -111,7 +111,7 @@ public final class BaseUniverse {
                     .build(),
             Gravity.relativeToEarth(1.06)
     );
-    public static final PlanetaryWorld EARTH = new Earth("Earth",
+    public static final PlanetaryWorld EARTH = new Earth("地球",
             PlanetaryType.TERRESTRIAL,
             Orbit.kilometers(149_600_000L, 1D),
             SOLAR_SYSTEM,
