@@ -140,29 +140,27 @@ public final class Rocket extends SlimefunItem {
             }
 
             return true;
-        }, (player, obj) -> {
-            if (obj instanceof PlanetaryWorld planetaryWorld) {
-                player.closeInventory();
-                int usedFuel = (int) Math.ceil((planetaryWorld.distanceTo(world) * Util.KM_PER_LY) / DISTANCE_PER_FUEL);
-                player.sendMessage(ChatColor.YELLOW + "你要去 " + planetaryWorld.name() + " ,將會使用 " +
-                        usedFuel + " 燃料. 你確定要這麼做嗎? (yes/no)");
-                ChatUtils.awaitInput(player, (input) -> {
-                    if (input.equalsIgnoreCase("yes")) {
-                        p.sendMessage(ChatColor.YELLOW + "請以 <x> <z> 的格式輸入目的地座標 (像是 -123 456):");
-                        ChatUtils.awaitInput(p, (response) -> {
-                            String trimmed = response.trim();
-                            if (Util.COORD_PATTERN.matcher(trimmed).matches()) {
-                                String[] split = Util.SPACE_PATTERN.split(trimmed);
-                                int x = Integer.parseInt(split[0]);
-                                int z = Integer.parseInt(split[1]);
-                                launch(player, b, planetaryWorld, fuel - usedFuel, fuelType, x, z);
-                            } else {
-                                p.sendMessage(ChatColor.RED + "未知座標格式! 請使用格式 <x> <z>");
-                            }
-                        });
-                    }
-                });
-            }
+        }, (player, pw) -> {
+            player.closeInventory();
+            int usedFuel = (int) Math.ceil((pw.distanceTo(world) * Util.KM_PER_LY) / DISTANCE_PER_FUEL);
+            player.sendMessage(ChatColor.YELLOW + "你要去 " + pw.name() + " ,將會使用 " +
+                    usedFuel + " 燃料. 你確定要這麼做嗎? (yes/no)");
+            ChatUtils.awaitInput(player, (input) -> {
+                if (input.equalsIgnoreCase("yes")) {
+                    p.sendMessage(ChatColor.YELLOW + "請以 <x> <z> 的格式輸入目的地座標 (像是 -123 456):");
+                    ChatUtils.awaitInput(p, (response) -> {
+                        String trimmed = response.trim();
+                        if (Util.COORD_PATTERN.matcher(trimmed).matches()) {
+                            String[] split = Util.SPACE_PATTERN.split(trimmed);
+                            int x = Integer.parseInt(split[0]);
+                            int z = Integer.parseInt(split[1]);
+                            launch(player, b, pw, fuel - usedFuel, fuelType, x, z);
+                        } else {
+                            p.sendMessage(ChatColor.RED + "未知座標格式! 請使用格式 <x> <z>");
+                        }
+                    });
+                }
+            });
         }).open(p);
     }
 
