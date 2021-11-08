@@ -31,6 +31,9 @@ import io.github.addoncommunity.galactifun.core.managers.WorldManager;
 import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.mooy1.infinitylib.core.AbstractAddon;
 //import io.github.mooy1.infinitylib.metrics.bukkit.Metrics;
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 
 
 public final class Galactifun extends AbstractAddon {
@@ -61,6 +64,28 @@ public final class Galactifun extends AbstractAddon {
     @Override
     protected void enable() {
         instance = this;
+
+        boolean shouldDisable = false;
+        if (!PaperLib.isPaper()) {
+            log(Level.SEVERE, "Galactifun 僅支持 Paper 與它的分支 (例如 Airplane 和 Purpur)");
+            log(Level.SEVERE, "請使用 Paper 或 Paper 的分支");
+            shouldDisable = true;
+        }
+        if (Slimefun.getMinecraftVersion().isBefore(MinecraftVersion.MINECRAFT_1_17)) {
+            log(Level.SEVERE, "Galactifun 僅支持 Minecraft 1.17 或更高");
+            log(Level.SEVERE, "請使用 Minecraft 1.17 或更高版本來運行");
+            shouldDisable = true;
+        }
+        if (Bukkit.getPluginManager().isPluginEnabled("ClayTech")) {
+            log(Level.SEVERE, "Galactifun 將無法與 ClayTech 附加一起正常運作");
+            log(Level.SEVERE, "請停用 ClayTech");
+            shouldDisable = true;
+        }
+
+        if (shouldDisable) {
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
 
         //new Metrics(this, 11613);
 
