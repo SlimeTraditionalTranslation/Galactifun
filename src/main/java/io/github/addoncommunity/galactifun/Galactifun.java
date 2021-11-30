@@ -45,6 +45,8 @@ public final class Galactifun extends AbstractAddon {
     private WorldManager worldManager;
     private ProtectionManager protectionManager;
 
+    private boolean shouldDisable = false;
+
     public Galactifun() {
         super("Slimefun-Addon-Community", "Galactifun", "master", "auto-update");
     }
@@ -65,7 +67,6 @@ public final class Galactifun extends AbstractAddon {
     protected void enable() {
         instance = this;
 
-        boolean shouldDisable = false;
         if (!PaperLib.isPaper()) {
             log(Level.SEVERE, "Galactifun 僅支持 Paper 與它的分支 (例如 Airplane 和 Purpur)");
             log(Level.SEVERE, "請使用 Paper 或 Paper 的分支");
@@ -123,6 +124,8 @@ public final class Galactifun extends AbstractAddon {
 
     @Override
     protected void disable() {
+        if (shouldDisable) return;
+
         this.alienManager.onDisable();
 
         // Do this last
