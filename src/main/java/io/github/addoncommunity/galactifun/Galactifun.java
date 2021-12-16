@@ -1,5 +1,6 @@
 package io.github.addoncommunity.galactifun;
 
+import java.io.File;
 import java.util.logging.Level;
 
 import javax.annotation.Nonnull;
@@ -10,6 +11,8 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.java.JavaPluginLoader;
 
 import io.github.addoncommunity.galactifun.api.worlds.AlienWorld;
 import io.github.addoncommunity.galactifun.api.worlds.PlanetaryWorld;
@@ -41,6 +44,8 @@ public final class Galactifun extends AbstractAddon {
     @Getter
     private static Galactifun instance;
 
+    private boolean isTest = false;
+
     private AlienManager alienManager;
     private WorldManager worldManager;
     private ProtectionManager protectionManager;
@@ -49,6 +54,11 @@ public final class Galactifun extends AbstractAddon {
 
     public Galactifun() {
         super("Slimefun-Addon-Community", "Galactifun", "master", "auto-update");
+    }
+
+    public Galactifun(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
+        super(loader, description, dataFolder, file, "Slimefun-Addon-Community", "Galactifun", "master", "auto-update");
+        isTest = true;
     }
 
     public static AlienManager alienManager() {
@@ -67,25 +77,27 @@ public final class Galactifun extends AbstractAddon {
     protected void enable() {
         instance = this;
 
-        if (!PaperLib.isPaper()) {
-            log(Level.SEVERE, "Galactifun 僅支持 Paper 與它的分支 (例如 Airplane 和 Purpur)");
-            log(Level.SEVERE, "請使用 Paper 或 Paper 的分支");
-            shouldDisable = true;
-        }
-        if (Slimefun.getMinecraftVersion().isBefore(MinecraftVersion.MINECRAFT_1_17)) {
-            log(Level.SEVERE, "Galactifun 僅支持 Minecraft 1.17 或更高");
-            log(Level.SEVERE, "請使用 Minecraft 1.17 或更高版本來運行");
-            shouldDisable = true;
-        }
-        if (Bukkit.getPluginManager().isPluginEnabled("ClayTech")) {
-            log(Level.SEVERE, "Galactifun 將無法與 ClayTech 附加一起正常運作");
-            log(Level.SEVERE, "請停用 ClayTech");
-            shouldDisable = true;
-        }
+        if (!isTest) {
+            if (!PaperLib.isPaper()) {
+                log(Level.SEVERE, "Galactifun 僅支持 Paper 與它的分支 (例如 Airplane 和 Purpur)");
+                log(Level.SEVERE, "請使用 Paper 或 Paper 的分支");
+                shouldDisable = true;
+            }
+            if (Slimefun.getMinecraftVersion().isBefore(MinecraftVersion.MINECRAFT_1_17)) {
+                log(Level.SEVERE, "Galactifun 僅支持 Minecraft 1.17 或更高");
+                log(Level.SEVERE, "請使用 Minecraft 1.17 或更高版本來運行");
+                shouldDisable = true;
+            }
+            if (Bukkit.getPluginManager().isPluginEnabled("ClayTech")) {
+                log(Level.SEVERE, "Galactifun 將無法與 ClayTech 附加一起正常運作");
+                log(Level.SEVERE, "請停用 ClayTech");
+                shouldDisable = true;
+            }
 
-        if (shouldDisable) {
-            Bukkit.getPluginManager().disablePlugin(this);
-            return;
+            if (shouldDisable) {
+                Bukkit.getPluginManager().disablePlugin(this);
+                return;
+            }
         }
 
         //new Metrics(this, 11613);
@@ -95,7 +107,9 @@ public final class Galactifun extends AbstractAddon {
         this.protectionManager = new ProtectionManager();
 
         BaseAlien.setup(this.alienManager);
-        BaseUniverse.setup(this);
+        if (!isTest) {
+            BaseUniverse.setup(this);
+        }
         CoreItemGroup.setup(this);
         BaseMats.setup();
         BaseItems.setup(this);
@@ -134,8 +148,10 @@ public final class Galactifun extends AbstractAddon {
 
     @Override
     public void load() {
-        // Default to not logging world settings
-        Bukkit.spigot().getConfig().set("world-settings.default.verbose", false);
+        if (!isTest) {
+            // Default to not logging world settings
+            Bukkit.spigot().getConfig().set("world-settings.default.verbose", false);
+        }
     }
 
     @Nullable
