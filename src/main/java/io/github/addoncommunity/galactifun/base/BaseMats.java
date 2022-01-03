@@ -135,7 +135,7 @@ public final class BaseMats {
             "&f噴嘴"
     );
     public static final SlimefunItemStack FILTER = new SlimefunItemStack(
-            "FILTER",
+            "AIR_FILTER",
             Material.PAPER,
             "&f濾材"
     );
