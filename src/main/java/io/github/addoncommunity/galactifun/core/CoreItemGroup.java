@@ -35,13 +35,16 @@ public final class CoreItemGroup {
             "items", new CustomItemStack(GalactifunHead.ROCKET, "&f銀河科技")
     );
     public static final ItemGroup COMPONENTS = new SubGroup(
-            "components", new CustomItemStack(Material.IRON_INGOT, "&f銀河科技組件")
+            "components", new CustomItemStack(Material.IRON_INGOT, "&f銀河科技 - 組件")
     );
     public static final ItemGroup MACHINES = new SubGroup(
-            "machines", new CustomItemStack(Material.REDSTONE_LAMP, "&f銀河科技機器")
+            "machines", new CustomItemStack(Material.REDSTONE_LAMP, "&f銀河科技 - 機器")
     );
     public static final ItemGroup BLOCKS = new SubGroup(
-            "blocks", new CustomItemStack(Material.COBBLESTONE, "&f銀河科技方塊")
+            "blocks", new CustomItemStack(Material.COBBLESTONE, "&f銀河科技 - 方塊")
+    );
+    public static final ItemGroup RELICS = new SubGroup(
+            "relics", new CustomItemStack(Material.CHISELED_POLISHED_BLACKSTONE, "&f銀河科技 - 古遺物")
     );
 
     public static final AssemblyItemGroup ASSEMBLY_CATEGORY = new AssemblyItemGroup(
@@ -54,7 +57,7 @@ public final class CoreItemGroup {
 
         new MultiGroup("main",
                 new CustomItemStack(Material.BEACON, "&b銀河科技"),
-                EQUIPMENT, ITEMS, COMPONENTS, MACHINES, BLOCKS, universe, ASSEMBLY_CATEGORY
+                EQUIPMENT, ITEMS, COMPONENTS, MACHINES, BLOCKS, universe, ASSEMBLY_CATEGORY, RELICS
         ).register(galactifun);
     }
 
