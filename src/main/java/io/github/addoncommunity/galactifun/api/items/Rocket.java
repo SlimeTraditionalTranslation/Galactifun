@@ -182,7 +182,7 @@ public abstract class Rocket extends SlimefunItem {
                             if (border.isInside(new Location(pw.world(), x, 0, z))) {
                                 launch(player, b, pw, fuel - usedFuel, fuelType, x, z);
                             } else {
-                                player.sendMessage(ChatColor.RED + "The coordinates you entered are outside of the world border");
+                                player.sendMessage(ChatColor.RED + "你輸入的坐標在世界邊界之外");
                             }
                         } else {
                             p.sendMessage(ChatColor.RED + "未知座標格式! 請使用格式 <x> <z>");
