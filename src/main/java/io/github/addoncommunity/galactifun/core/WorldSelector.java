@@ -113,8 +113,8 @@ public final class WorldSelector {
                     lore.remove(lore.size() - 1);
 
                     if (distance > 0) {
-                        lore.add(Component.text("距離: " + (distance < 1
-                                ? distance * Util.KM_PER_LY + " 公里"
+                        lore.add(Component.text("距離: " + (distance < .5
+                                ? "%.3f 公里".formatted(distance * Util.KM_PER_LY)
                                 : distance + " 光年")
                         ).color(NamedTextColor.GRAY));
                     } else {
