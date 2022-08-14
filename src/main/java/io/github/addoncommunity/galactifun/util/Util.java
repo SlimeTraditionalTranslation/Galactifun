@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ import lombok.experimental.UtilityClass;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.RegionAccessor;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
@@ -62,6 +64,7 @@ public final class Util {
                 Material.QUARTZ_BLOCK,
                 Material.SMOOTH_QUARTZ
         ));
+        IMPERMEABLE_BLOCKS.add(Material.LIGHT);
         for (Material material : Material.values()) {
             if (material.name().startsWith("WAXED") || material.name().endsWith("CONCRETE")) {
                 IMPERMEABLE_BLOCKS.add(material);
@@ -124,4 +127,26 @@ public final class Util {
         return new Location(null, x, 0, z);
     }
 
+    public static Block getHighestBlockAt(@NonNull World world, int x, int z, @NonNull Predicate<Block> isSolid) {
+        for (int y = world.getMaxHeight() - 1; y > world.getMinHeight(); y--) {
+            Block block = world.getBlockAt(x, y, z);
+            if (isSolid.test(block)) {
+                return world.getBlockAt(x, y + 1, z);
+            }
+        }
+
+        return world.getBlockAt(x, 0, z);
+    }
+
+    /**
+     * Formats the given double as a distance string
+     * @param distance the distance to format, in light years
+     */
+    public static String formatDistance(double distance) {
+        if (distance >= 0.25) {
+            return "%.3f 光年".formatted(distance);
+        } else {
+            return "%.3f 公里".formatted(distance * KM_PER_LY);
+        }
+    }
 }
