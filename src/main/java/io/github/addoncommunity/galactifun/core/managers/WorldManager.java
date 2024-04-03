@@ -50,6 +50,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.MetadataValue;
 
+import com.destroystokyo.paper.event.player.PlayerTeleportEndGatewayEvent;
 import io.github.addoncommunity.galactifun.Galactifun;
 import io.github.addoncommunity.galactifun.api.items.ExclusiveGEOResource;
 import io.github.addoncommunity.galactifun.api.items.spacesuit.SpaceSuitProfile;
@@ -86,6 +87,7 @@ public final class WorldManager implements Listener {
 
     private final Map<UUID, Integer> respawnTimes = new HashMap<>();
     private final Map<UUID, Long> lastDeaths = new HashMap<>();
+    private final Map<UUID, Long> oxygenDamage = new HashMap<>();
 
     public WorldManager(Galactifun galactifun) {
         this.maxAliensPerPlayer = galactifun.getConfig().getInt("aliens.max-per-player", 4, 64);
@@ -147,9 +149,13 @@ public final class WorldManager implements Listener {
                 if (world != null
                         && world.atmosphere().requiresOxygenTank()
                         && !Galactifun.protectionManager().isOxygenBlock(p.getLocation())
-                        && !SpaceSuitProfile.get(p).consumeOxygen(20)) {
+                        && !SpaceSuitProfile.get(p).consumeOxygen(20)
+                        && !p.isDead()) {
                     p.sendMessage(ChatColor.RED + "你的氧氣已經用完了!");
-                    p.damage(8);
+                    double damage = oxygenDamage.merge(p.getUniqueId(), 2L, (a, b) -> a * b);
+                    p.setHealth(Math.max(p.getHealth() - damage, 0));
+                } else {
+                    oxygenDamage.remove(p.getUniqueId());
                 }
             }
         }
@@ -205,10 +211,12 @@ public final class WorldManager implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     private void onPlayerTeleport(@Nonnull PlayerTeleportEvent e) {
+        if (e instanceof PlayerTeleportEndGatewayEvent) return;
         if (!e.getPlayer().hasPermission("galactifun.admin")) {
-            if (e.getTo().getWorld() != null) {
-                AlienWorld world = getAlienWorld(e.getTo().getWorld());
-                if (world != null) {
+            if (e.getTo().getWorld() != null && e.getFrom().getWorld() != e.getTo().getWorld()) {
+                PlanetaryWorld world = getWorld(e.getTo().getWorld());
+                PlanetaryWorld world2 = getWorld(e.getFrom().getWorld());
+                if (world != null && world2 != null) {
                     boolean canTp = false;
                     for (MetadataValue value : e.getPlayer().getMetadata("CanTpAlienWorld")) {
                         canTp = value.asBoolean();
