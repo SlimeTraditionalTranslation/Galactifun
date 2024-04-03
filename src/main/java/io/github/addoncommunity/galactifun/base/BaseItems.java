@@ -200,7 +200,7 @@ public final class BaseItems {
     );
     public static final SlimefunItemStack DIAMOND_ANVIL = new SlimefunItemStack(
             "DIAMOND_ANVIL",
-            Material.ANVIL,
+            Material.PISTON,
             "&f鑽石鐵砧",
             "",
             "&7如此堅硬的壓縮材料",
